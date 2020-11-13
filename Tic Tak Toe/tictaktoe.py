@@ -124,5 +124,5 @@ for j in range(1, 10):
         exit(1)
 
 
-print("Draw lmao")
+print("Draw")
 exit(1)
