@@ -1,24 +1,21 @@
 import re
 def negate(term):
-    return f'{term}' if term[0] != '' else term[1]
+    return f'~{term}' if term[0] != '~' else term[1]
 
 def reverse(clause):
     t = split_terms(clause)
     if len(t) > 2:
         return f'{t[1]}v{t[0]}'
     return ''
-
 def split_terms(rule):
     # exp = '(*[V])'
     # terms = re.findall(exp, rule)
     terms = rule.split("v")
     # print("te", terms)
     return terms
-
 def contradiction(query, clause):
     contradictions = [ f'{query}v{negate(query)}', f'{negate(query)}v{query}']
     return clause in contradictions or reverse(clause) in contradictions
-
 def resolve(kb, query):
     temp = kb.copy()
     temp += [negate(query)]
@@ -31,7 +28,7 @@ def resolve(kb, query):
         n = len(temp)
         j = (i + 1) % n
         clauses = []
-        while j != i:
+        while j != i:   
             terms1 = split_terms(temp[i])
             terms2 = split_terms(temp[j])
             for c in terms1:
@@ -63,7 +60,6 @@ def resolve(kb, query):
             j = (j + 1) % n
         i += 1
     return steps
-
 def resolution(kb, query):
     kb = kb.split(' ')
     steps = resolve(kb, query)
