@@ -94,3 +94,5 @@ def main():
     print("Enter the query:")
     query = input()
     resolution(kb, query)
+
+main()
